@@ -1,155 +1,173 @@
-# Machine Learning for High-Frequency Trading
+# 📈 High-Frequency Trading Framework with Machine/Deep Learning
 
-A machine learning framework for analyzing Level-II limit order book data, engineering market microstructure features, predicting short-term market dynamics, and visualizing trading performance.
 
-**Author:** Tanvi Nagar  
-**Repository:** [ml-high-frequency-trading](https://github.com/tanvi2594/ml-high-frequency-trading)
+A framework for exploring high-frequency trading using machine learning and deep learning techniques on Level-II limit order book data. The project covers market microstructure signals, feature engineering, predictive modeling, and trading performance visualization.
 
-## Overview
+## 🎯 Project Objectives
 
-High-frequency trading (HFT) relies on granular market data, rapid signal extraction, and systematic evaluation of trading decisions. This project explores how machine learning can be applied to order book data to identify predictive signals and study market behavior.
+- Extract trading signals from Level-II order book data.
+- Investigate short-term order book dynamics using machine learning.
+- Explore market microstructure features for predictive modeling.
+- Analyze model performance and visualize prediction results.
 
-The framework covers data processing, feature engineering, model training, prediction analysis, and P&L visualization.
+## 📊 Dataset
 
-## Key Components
+The project uses tick-level depth data from SGX FTSE China A50 Index Futures, a major Asia-Pacific index futures contract traded on the Singapore Exchange.
 
-- **Order Book Analysis:** Analyze Level-II market depth, bid-ask prices, and quantities.
-- **Feature Engineering:** Explore Order Book Imbalance (OBI), depth ratios, and rise ratios as potential predictive signals.
-- **Machine Learning:** Evaluate baseline classifiers, including Random Forest, Extra Trees, AdaBoost, Gradient Boosting, and Support Vector Machines.
-- **Model Evaluation:** Examine prediction accuracy and cross-validation results.
-- **Trading Performance Visualization:** Explore prediction outputs and profit-and-loss visualizations.
+The included data represents historical market observations rather than a live trading feed.
 
-## Project Pipeline
+## 🔄 Strategy Pipeline
 
-1. Load and inspect tick-level market data.
-2. Process order book information and prepare features.
-3. Construct market microstructure signals.
-4. Train and evaluate predictive models.
-5. Analyze model predictions and visualize results.
+The framework follows a pipeline from order book data processing and feature construction to model fitting, prediction analysis, and performance visualization.
 
-![Strategy Pipeline](Graph/pipline.png)
+<p align="center">
+  <img src="./Graph/pipline.png" width="650" alt="High-frequency trading strategy pipeline">
+</p>
 
-## Dataset
+## 📉 Order Book Signals
 
-The project includes sample tick-level depth data for SGX FTSE China A50 Index Futures.
+The framework explores market microstructure features, including:
 
-The included datasets are historical examples, not live market feeds. Check the original dataset's redistribution terms before sharing it publicly.
+- **Depth Ratio:** Examines liquidity distribution across order book levels.
+- **Rise Ratio:** Captures price-related changes in the order book.
+- **Order Book Imbalance (OBI):** Measures differences between bid-side and ask-side quantities.
 
-## Feature Engineering
+<p align="center">
+  <img src="./Graph/depth.png" width="650" alt="Order book depth visualization">
+</p>
 
-The framework explores several order book signals:
+## 📈 Price Series
 
-- **Order Book Imbalance (OBI):** Measures the relative imbalance between bid-side and ask-side quantities.
-- **Depth Ratio:** Examines the distribution of liquidity across the order book.
-- **Rise Ratio:** Explores price-related changes as a potential predictive feature.
+The original price-series visualization illustrates the best bid and ask prices over time.
 
-These features can help investigate short-term market dynamics, but their predictive value must be validated empirically.
+<p align="center">
+  <img src="./images/best_bid_ask.png" width="750" alt="Best bid and ask price series">
+</p>
 
-![Order Book Depth](Graph/depth.png)
+## 🧰 Feature Engineering & HFT Factors Design
 
-## Models and Evaluation
+### Simple Average Depth Ratio and OBI
 
-The original framework explores baseline classification methods such as:
+The following plots illustrate order book features across different market sessions.
 
-- Random Forest
-- Extra Trees
-- AdaBoost
-- Gradient Boosting
+<p align="center">
+  <img src="./images/depth_0915_1130.png" width="750" alt="Order book depth features from 09:15 to 11:30">
+</p>
+
+<p align="center">
+  <img src="./images/depth_1300_1600.png" width="750" alt="Order book depth features from 13:00 to 16:00">
+</p>
+
+### Weighted Average Depth Ratio, OBI, and Rise Ratio
+
+<p align="center">
+  <img src="./images/rise_1300_1600_w.png" width="750" alt="Weighted rise ratio and order book features">
+</p>
+
+## 🤖 Model Fitting
+
+### Baseline Models
+
+The original framework explores the following classification approaches:
+
+- Random Forest Classifier
+- Extra Trees Classifier
+- AdaBoost Classifier
+- Gradient Boosting Classifier
 - Support Vector Machines
+- Other potential classifiers and architectures, including Softmax, KNN, MLP, and LSTM
 
-The notebooks also include prediction analysis, cross-validation visualizations, and model comparison.
+### Experimental Configuration
 
-![Prediction Results](images/prediction.png)
+- **Training window:** 30 minutes
+- **Test window:** 10 seconds
+- **Prediction label:** 15-minute forward horizon
 
-![Cross-Validation Results](images/CV_result.png)
+These are the experimental settings documented by the original project.
 
-**Note:** Reported predictive accuracy does not, by itself, establish profitability. A rigorous trading evaluation should account for transaction fees, slippage, market impact, latency, and look-ahead bias.
+## 📊 Performance Metrics and Original Results
 
-## Repository Structure
+The following figures preserve the original project's prediction and model-evaluation visualizations. They are reproduced from the existing repository and are not independently verified results from new experiments.
 
-```text
-ml-high-frequency-trading/
-├── Graph/
-├── images/
-├── data/
-├── HFT_factors.ipynb
-├── data_process.ipynb
-├── data_visualization.ipynb
-├── feature_engineering.ipynb
-├── model_fitting.ipynb
-└── README.md
-```
+### Prediction Accuracy
 
-## Getting Started
+<p align="center">
+  <img src="./images/prediction.png" width="750" alt="Original prediction results">
+</p>
 
-### Requirements
+### Prediction Accuracy Series
 
-- Python 3
-- Jupyter Notebook
-- pandas
-- NumPy
-- Matplotlib
-- scikit-learn
+<p align="center">
+  <img src="./images/single_day_accuracy.png" width="800" alt="Original single-day prediction accuracy series">
+</p>
 
-Additional dependencies may be needed depending on the notebook cells you execute.
+### Cross-Validation Mean Accuracy
 
-### Setup
+<p align="center">
+  <img src="./images/CV_result.png" width="800" alt="Original cross-validation mean accuracy results">
+</p>
 
-Clone the repository:
+### Best Model
 
-```bash
-git clone https://github.com/tanvi2594/ml-high-frequency-trading.git
-cd ml-high-frequency-trading
-```
+<p align="center">
+  <img src="./images/best_CV_result.png" width="800" alt="Original best model evaluation results">
+</p>
 
-Create a virtual environment:
+## 💹 P&L Visualization
 
-```bash
-python -m venv .venv
-```
+The original repository includes the following visualization associated with its model evaluation and P&L analysis.
 
-Activate it on Windows:
+<p align="center">
+  <img src="./images/best_CV_result_all.png" width="800" alt="Original model and P&L-related visualization">
+</p>
 
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
+**Evaluation note:** Predictive accuracy alone does not establish trading profitability. Transaction costs, commissions, slippage, market impact, look-ahead bias, and out-of-sample performance must be considered before drawing conclusions about a strategy's viability.
 
-Install the core dependencies:
+## 💡 Potential Improvements
 
-```bash
-python -m pip install pandas numpy matplotlib scikit-learn jupyter
-```
+The original project identifies several possible research directions.
 
-Launch Jupyter Notebook:
+### Feature Engineering
 
-```bash
-jupyter notebook
-```
+- Volume imbalance and trade imbalance signals.
+- Technical indicators derived from bid and ask price series, including RSI and MACD.
+- Weighted average price, VWAP, TWAP, and related price features.
+- Alternative weighting schemes across order book levels.
+- Moving averages and weighted combinations of trading signals.
+- Feature selection and methods such as Lasso regression and genetic programming.
 
-Start with `data_process.ipynb`, followed by the feature engineering, visualization, and model-fitting notebooks. Exact execution order may depend on the variables and files referenced by individual notebooks.
+### Models
 
-## My Contribution and Learning Focus
+Potential extensions include:
 
-As an IIT Delhi Production and Industrial Engineering student interested in machine learning and quantitative finance, my focus with this repository is to:
+- CNN and GRU/LSTM architectures.
+- XGBoost, LightGBM, and other gradient-boosting approaches.
+- Attention-based models and autoencoders.
+- TabNet and pretrained models.
 
-- Study how order book structure can be translated into quantitative features for predictive modeling.
-- Understand the complete workflow from historical market data to feature engineering, model evaluation, and trading analysis.
-- Improve the clarity of project documentation and reproducibility of the experimental workflow.
-- Identify opportunities for more rigorous out-of-sample evaluation and realistic transaction-cost-aware backtesting.
+### Performance Evaluation
 
-These points describe my focus and intended extensions, not a claim that every improvement has already been implemented. Any original implementation, reproduced results, or additional experiments will be identified separately as they are completed.
+- More robust P&L calculations.
+- Explicit commission and transaction-cost modeling.
+- Time-aware validation and out-of-sample testing.
+- Evaluation across different market periods and conditions.
 
-## Future Improvements
+## 👩‍💻 My Contribution and Learning Focus
 
-- Add time-aware validation and walk-forward evaluation.
-- Investigate stronger models and additional market microstructure features.
-- Evaluate directional accuracy alongside precision, recall, and other appropriate metrics.
-- Incorporate transaction costs and slippage into backtesting.
-- Assess robustness across different market periods and regimes.
+As an IIT Delhi Production and Industrial Engineering student interested in machine learning and quantitative finance, I use this project to study the intersection of market microstructure, feature engineering, and predictive modeling.
+
+My focus areas include:
+
+- Understanding how Level-II order book data can be transformed into quantitative features.
+- Studying the relationship between liquidity imbalance, price dynamics, and prediction targets.
+- Examining the experimental workflow from data preprocessing to model evaluation.
+- Identifying opportunities to improve evaluation rigor, reproducibility, and transaction-cost-aware strategy analysis.
+
+**Scope clarification:** The original implementation and results are retained for attribution and reference. The points above describe my learning and analysis focus, not a claim that every proposed improvement has already been implemented. Any additional code, experiments, and measured results should be documented separately as they are completed.
 
 
-## Disclaimer
+## ⚠️ Disclaimer
 
-This project is for educational and research purposes. It is not financial advice, and the results do not guarantee future trading performance.
+This repository is intended for educational and research purposes. It does not constitute financial advice, and historical model results do not guarantee future trading performance.
 
 ---
